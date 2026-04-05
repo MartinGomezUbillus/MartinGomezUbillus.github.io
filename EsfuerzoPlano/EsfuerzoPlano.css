@@ -1,0 +1,107 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #c8c8c8;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #1E293B;
+    color: #FFFFFF;
+    padding: 20px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   /* Centra verticalmente (si el header tiene altura fija) */
+    
+}
+
+header h1 {
+    font-size: 3vw;
+    margin: auto;
+}
+.contexto {
+    width: 70%;
+    font-size: 1.5vw;
+}
+
+.Titulo {
+    margin: 50px 20px 0 20px ;
+}
+.contenido {
+    margin: 20px;
+}
+.Titulo,.contenido {
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.092);
+    color: #475569;
+    flex-wrap: wrap;
+    gap: 20px;
+    display: flex;              /* Usamos flexbox para alinear los elementos en fila */
+}
+
+.Formulario {
+    display: flex;
+    flex-direction: column;
+  gap: 10px; /* Espacio entre cada fila */
+}
+
+.Formulario .Elementos {
+    display: flex;
+    align-items: center;
+}
+
+.Formulario .Elementos label {
+    width: 40px; /* Ajusta el ancho del label */
+    text-align: right; /* Alinea el texto del label a la derecha */
+    margin-right: 10px; /* Espacio entre el label y el input */
+}
+
+.Formulario .Elementos input {
+    width: 80px;
+    flex: 1; /* Hace que el input ocupe el espacio restante */
+}
+input,
+select {
+    border: none;
+    outline: none; /* quita el borde azul por defecto del navegador */
+    box-shadow: 0 2px 0px rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    transition: 0.2s ease;
+}
+input:focus,
+select:focus {
+    background-color: #e6f0ff;
+    box-shadow: 0 0 0 2px #4a90e2;
+}
+/* Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.contenido {
+    display: flex;
+    flex-direction: wrap;   /* horizontal */
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.Resultados {
+    display: flex;         /* Alinea en fila por defecto */
+    flex-wrap: wrap;       /* Envía al siguiente nivel si no hay espacio */
+    align-items: flex-start;
+}
+.Resultados > div {
+    margin: 0px 20px
+}
+

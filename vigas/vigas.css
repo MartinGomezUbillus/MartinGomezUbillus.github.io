@@ -1,0 +1,120 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    font-size: 26px;
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+h3 {
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+.seccion-datos {
+    background-color: #fcfcfc;
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.input-group label {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #ecf0f1;
+    font-size: 14px;
+}
+
+input[type="number"], input[type="text"], select {
+    width: 90%;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#btn-calcular {
+    background-color: #27ae60;
+    font-size: 16px;
+    width: 100%;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+#btn-calcular:hover {
+    background-color: #219653;
+}
+
+.btn-agregar {
+    background-color: #3498db;
+}
+
+.btn-agregar:hover {
+    background-color: #2980b9;
+}
+
+.btn-eliminar {
+    background-color: #e74c3c;
+    padding: 5px 10px;
+}
+
+.btn-eliminar:hover {
+    background-color: #c0392b;
+}
+
+.resultados {
+    margin-top: 20px;
+    background-color: #1e1e1e;
+    color: #00ff00;
+    padding: 20px;
+    border-radius: 5px;
+    font-family: 'Courier New', Courier, monospace;
+    white-space: pre-wrap;
+    display: none;
+}

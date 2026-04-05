@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Análisis Estructural</title>
+    <link rel="stylesheet" href="vigas.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Análisis de Viga por Método de Rigidez</h1>
+        
+        <!-- Propiedades de la Sección -->
+        <div class="seccion-datos">
+            <h3>Propiedades de la Sección</h3>
+            <div class="input-group">
+                <label>Inercia (I):</label>
+                <input type="number" id="input-inercia" value="0.002133333" step="any">
+            </div>
+            <div class="input-group">
+                <label>Módulo de Elasticidad (E):</label>
+                <input type="number" id="input-elasticidad" value="200000000000" step="any">
+            </div>
+        </div>
+
+        <!-- Tabla de Apoyos -->
+        <div class="seccion-datos">
+            <h3>Apoyos</h3>
+            <table id="tabla-apoyos">
+                <thead>
+                    <tr><th>Nombre</th><th>Tipo</th><th>Posición (x)</th><th></th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <button class="btn-agregar" onclick="agregarFilaApoyo('', 'empotrado', 0)">+ Agregar Apoyo</button>
+        </div>
+
+        <!-- Tabla de Cargas Distribuidas -->
+        <div class="seccion-datos">
+            <h3>Cargas Distribuidas</h3>
+            <table id="tabla-distribuidas">
+                <thead>
+                    <tr><th>q1</th><th>q2</th><th>Posición Inicial (xo)</th><th>Posición Final (xf)</th><th></th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <button class="btn-agregar" onclick="agregarFilaDistribuida(0, 0, 0, 0)">+ Agregar Carga Distribuida</button>
+        </div>
+
+        <!-- Tabla de Cargas Puntuales -->
+        <div class="seccion-datos">
+            <h3>Cargas Puntuales</h3>
+            <table id="tabla-puntuales">
+                <thead>
+                    <tr><th>Fuerza (Fy)</th><th>Momento (M)</th><th>Posición (x)</th><th></th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <button class="btn-agregar" onclick="agregarFilaPuntual(0, 0, 0)">+ Agregar Carga Puntual</button>
+        </div>
+
+        <button id="btn-calcular" onclick="calcularEstructura()">Ejecutar Cálculo</button>
+
+        <div class="resultados" id="panel-resultados"></div>
+    </div>
+    <script src="vigas.js"></script>
+</body>
+</html>

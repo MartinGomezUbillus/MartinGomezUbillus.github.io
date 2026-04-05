@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="EsfuerzoPlano.css">
+    <title>Esfuerzos planos</title>
+    <link rel="icon" type="image/png" href="/Imagenes/ICON.png">
+    <head>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+</head>
+    
+</head>
+<body>
+    <header>
+        <h1>Calculadora de Esfuerzos y Deformaciones</h1>
+        <p class="contexto">Calcula los esfuerzos y deformaciones principales, determina los valores máximos y el ángulo de inclinación, y genera el círculo de Mohr para un análisis estructural preciso y rápido.</p>
+    </header>
+    <section class="Sectiones" id="SectionEsfuerzo">
+        <div class="Titulo"> 
+            <h2>Esfuerzo plano</h2>
+            <div class="imagen"></div>
+        </div>
+        <div class="contenido">
+            <form id="FormularioEsfuerzo" class="Formulario">
+                <p class="subtitulo">Datos</p>
+                <div class="Elementos">
+                    <label for="Ex">$\sigma_x$ =</label>
+                    <input step="any" required type="number" id="Ex" name="Ex">
+                </div>
+                <div class="Elementos">
+                    <label for="Ey">$\sigma_y$ =</label>
+                    <input step="any" required type="number" id="Ey" name="Ey">
+                </div>
+                <div class="Elementos">
+                    <label for="Txy">$\tau_{xy}$ =</label>
+                    <input step="any" required type="number" id="Txy" name="Txy">
+                </div>
+                <div class="Elementos" id = "Unidades">
+                    <div class="Elementos">
+                        <label for="Theta">$\theta$ =</label>
+                        <input step="any" required type="number" id="Theta" name="Theta">
+                    </div>
+                    <div class="TipoAngulo">
+                        <select name="TipoAngulo" id="TipoAngulo">
+                            <option value="Radianes">rad</option>
+                            <option value="Sexagesimal">°</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="button">Calcular</button>
+            </form>
+            <div class="Resultados">
+                <div class="RespectoA">
+                    <p>Esfuerzos respecto al angulo $\theta$ </p>
+                    <p id="Exp">$\sigma_{x'}$ =</p>
+                    <p id="Eyp">$\sigma_{y'}$  =</p>
+                    <p id="Txyp">$\tau_{xy'}$ =</p>
+                </div>
+
+                <div class="EsfuerzosPrincipales">
+                    <p>Esfueros principales</p>
+                    <p id="Exm">$\sigma_{1}$ =</p>
+                    <p id="Eym">$\sigma_{2}$ =</p>
+                    <p id="ThetaP">$\theta_p$ =</p>
+                </div>
+
+                <div class="CortanteMaximo">
+                    <p>Esfuerzo cortante máximo</p>
+                    <p id="Tmax">$\tau_{xy_{max}}$ =</p>
+                    <p id="Eprom">$\sigma_{prom}$ =</p>
+                    <p id="ThetaS">$\theta_s$ =</p>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="Sectiones" id="SectionDeformacion">
+        <div class="Titulo">
+            <h2>Deformacion plana</h2>
+            <div class="imagen"></div>
+        </div>
+        <div class="contenido">
+            <form id="FormularioDeformacion" class="Formulario"></form>
+            <div class="Resultados"></div>
+        </div>
+    </section> 
+    <script src="EsfuerzoPlano.js"></script>
+</body>

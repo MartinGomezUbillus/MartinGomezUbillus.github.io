@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculos de Figuras para Inercia de Vigas</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <header>
+        <h1>Cálculos de Propiedades Geométricas de Secciones de Vigas</h1>
+        <p class="contexto">Introduce los datos de una o más secciones de viga para calcular sus propiedades geométricas, como el área, el centroide y el momento de inercia.</p>
+    </header>
+
+    <section class="section" id="section_1">
+        <div class ="Bloque_uno">
+        <h2>Sección I "Simétrica"</h2>
+        <img src="Imagenes/Hsim.jpg" alt="H Simétrica" class="I">
+        </div>
+
+        <form id="form_uno" class="Bloque_uno">
+            <div class="form-group">
+                <label for="unidades">Unidades: </label>
+                <select name="unidades" id="unidades" required>
+                    <option value="mm">mm</option>
+                    <option value="cm">cm</option>
+                    <option value="m">m</option>
+                    <option value="ft">ft</option>
+                    <option value="in">in</option>
+                </select>
+            </div>
+            <div class="form-group">
+            <label for="a_1">a:</label>
+            <input type="number" id="a_1" name="a_1" step="any" required>
+            <span id="unit_a"></span>
+            </div>
+
+            <div class="form-group">
+            <label for="b_1">b:</label>
+            <input type="number" id="b_1" name="b_1" step="any" required>
+            <span id="unit_b"></span>
+            </div>
+
+            <div class="form-group">
+            <label for="c_1">c:</label>
+            <input type="number" id="c_1" name="c_1" step="any" required>
+            <span id="unit_c"></span>
+            </div>
+
+            <button type="submit" class="link-button">Calcular</button>
+        </form>
+        
+        <div class="Bloque_tres">
+            <div >
+                <label for="resultado">Resultado: </label>
+                <select name="resultado" id="resultado" required> 
+                    <option value="mm">mm</option>
+                    <option value="cm">cm</option>
+                    <option value="m">m</option>
+                    <option value="ft">ft</option>
+                    <option value="in">in</option>
+                </select>
+            </div>
+            
+            <div class="resultados">
+            <p id="resultado-y">y = </p>
+            <p id="resultado-x">x = </p>
+            <p id="resultado-Ix">Ix = </p>
+            <p id="resultado-Iy">Iy =</p>
+            <p id="resultado-A"> A = </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="section_2">
+        <div class ="Bloque_uno">
+        <h2>Sección Tipo T</h2>
+        <img src="Imagenes/Tipo_T.jpg" alt="Sección Tipo T" class="T">
+        </div>
+        
+        <form id="form_dos">
+            <div class="form-group">
+                <label for="unidades_dos">Unidades: </label>
+                <select name="unidades_dos" id="unidades_dos" required>
+                    <option value="mm">mm</option>
+                    <option value="cm">cm</option>
+                    <option value="m">m</option>
+                    <option value="ft">ft</option>
+                    <option value="in">in</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+            <label for="a_2">a:</label>
+            <input type="number" id="a_2" name="a_2" step="any" required>
+            <span id="unit_a_dos"></span>
+            </div>
+
+            <div class="form-group">
+            <label for="b_2">b:</label>
+            <input type="number" id="b_2" name="b_2" step="any" required>
+            <span id="unit_b_dos"></span>
+            </div>
+
+            <div class="form-group">
+            <label for="c_2">c:</label>
+            <input type="number" id="c_2" name="c_2" step="any" required>
+            <span id="unit_c_dos"></span>
+            </div>
+            <div class="form-group">
+            <label for="d_2">d:</label>
+            <input type="number" id="d_2" name="d_2" step="any" required>
+            <span id="unit_d_dos"></span>
+            </div>
+            <button type="submit" class="link-button">Calcular</button>
+        </form>
+
+        <div class="Bloque_tres">
+            <div >
+                <label for="resultado_dos">Resultado: </label>
+                <select name="resultado_dos" id="resultado_dos" required> 
+                    <option value="mm">mm</option>
+                    <option value="cm">cm</option>
+                    <option value="m">m</option>
+                    <option value="ft">ft</option>
+                    <option value="in">in</option>
+                </select>
+            </div>
+            <p id="resultado-y_dos">y = </p>
+            <p id="resultado-x_dos">x = </p>
+            <p id="resultado-Ix_dos">Ix = </p>
+            <p id="resultado-Iy_dos">Iy =</p>
+            <p id="resultado-A_dos"> A = </p>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Viga Rectangular</h2>
+        <img src="ruta/a/la/imagen/viga_rectangular.jpg" alt="Viga Rectangular">
+        <a href="calculo_viga_rectangular.html" class="link-button">Calcular Inercia</a>
+    </section>
+
+    <section class="section">
+        <h2>Viga H Personalizada</h2>
+        <img src="ruta/a/la/imagen/viga_h_personalizada.jpg" alt="Viga H Personalizada">
+        <a href="calculo_viga_h_personalizada.html" class="link-button">Calcular Inercia</a>
+    </section>
+
+    <section class="section">
+        <h2>Viga Circular</h2>
+        <img src="ruta/a/la/imagen/viga_circular.jpg" alt="Viga Circular">
+        <a href="calculo_viga_circular.html" class="link-button">Calcular Inercia</a>
+    </section>
+    <script src="java.js"></script>
+</body>
+</html>

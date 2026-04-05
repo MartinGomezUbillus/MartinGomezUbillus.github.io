@@ -1,0 +1,159 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #c8c8c8;
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #1E293B;
+    color: #FFFFFF;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   /* Centra verticalmente (si el header tiene altura fija) */
+    padding: 10px ;
+}
+.contexto {
+    width: 50%;
+}
+.section {
+    background-color: #FFFFFF;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #475569;
+    flex-wrap: wrap;
+    gap: 20px;
+    
+    display: flex;              /* Usamos flexbox para alinear los elementos en fila */
+}
+
+.I {
+    display: block;
+    width: 250px;
+    height: 250px;
+}
+.T {
+    display: block;
+    width: 225px;
+    height: 275px;
+}
+.link-button {
+    display: inline-block;
+    background-color: #4A90E2;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+
+
+.Bloque_uno, .Bloque_tres {
+    display: flex;
+    flex-direction: column; /* Esto hace que el título esté arriba y la imagen debajo */
+    align-items: center; /* Centra los elementos horizontalmente */
+    justify-content: center; /* Centra los elementos verticalmente si es necesario */
+    text-align: center; /* Asegura que el texto del título también esté centrado */
+    margin: 0 30px;
+}
+.Bloque_tres {
+    display: flex;
+    flex-direction: column; 
+    /* CAMBIO 1: Alinea los elementos (imagen, cajas) al inicio (izquierda) */
+    align-items: flex-start; 
+    
+    justify-content: center; 
+    
+    /* CAMBIO 2: Alinea el texto de los párrafos o títulos a la izquierda */
+    text-align: left; 
+    
+    margin: 0 20px;
+}
+
+@media (max-width: 480px) {
+    .Bloque_tres { /* Usa la clase que tengan tus fórmulas */
+        font-size: 12px; /* Ajusta este valor hasta que quepa */
+    }
+    .contexto {
+        width: 80%;
+    }
+}
+
+#form_uno, #form_dos {
+    display: flex;
+    flex-direction: column; 
+    /* CAMBIO 1: Alinea los elementos (imagen, cajas) al inicio (izquierda) */
+    align-items: flex-start; 
+    
+    justify-content: center; 
+    
+    /* CAMBIO 2: Alinea el texto de los párrafos o títulos a la izquierda */
+    text-align: left; 
+    
+    margin: 0 20px;
+}
+.resultados {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinea los elementos al inicio (izquierda) */
+    justify-content: flex-start; /* Alinea el contenido hacia la parte superior */
+    text-align: left; /* Asegura que el texto esté alineado a la izquierda */
+    
+    color: #5576AA;
+}
+
+.form-group {
+    display: flex; /* Flexbox para alinear horizontalmente */
+    align-items: center; /* Centra verticalmente el contenido */
+    margin-bottom: 10px; /* Espaciado entre cada par */
+}
+.form-group label {
+    margin-right: 10px; /* Espacio entre el label y el input */
+}
+.form-group input {
+    width: 150px; /* Ancho del input (ajústalo según lo que necesites) */
+}
+input:focus {
+    border: #374B6D;
+    background-color: #5576AA; 
+    outline: none; /* Elimina el borde predeterminado del navegador */
+}
+input, select {
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+    border: none;
+    background-color: transparent;
+}
+.link-button {
+    background-color: #374B6D; /* Fondo verde */
+    color: #ffffff; /* Texto blanco */
+    padding: 10px 20px; /* Espaciado interno */
+    border: none; /* Elimina el borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor a mano */
+}
+.link-button:hover {
+    background-color: #5576AA;
+    color: #2A1433
+}
+.form-group span {
+    margin-left: 5px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Para Firefox */
+
+
+
