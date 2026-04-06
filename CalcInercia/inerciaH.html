@@ -138,23 +138,84 @@
         </div>
     </section>
 
-    <section class="section">
-        <h2>Viga Rectangular</h2>
-        <img src="ruta/a/la/imagen/viga_rectangular.jpg" alt="Viga Rectangular">
-        <a href="calculo_viga_rectangular.html" class="link-button">Calcular Inercia</a>
+    <section class="section" id="setion_3">
+        <div>
+            <h2>Seccion H Personalizada</h2>
+            <img src="Imagenes/Hpersonalizada.jpg" alt="Sección Tipo T" class="I">
+        </div>
+        
+        <form id="form_tres" class="Bloque_uno">
+            <div class="form-group">
+                <label for="unidades_tres">Unidades: </label>
+                <select name="unidades_tres" id="unidades_tres" required>
+                    <option value="mm">mm</option>
+                    <option value="cm">cm</option>
+                    <option value="m">m</option>
+                    <option value="ft">ft</option>
+                    <option value="in">in</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+            <label for="h_1">h1:</label>
+            <input type="number" id="h_1" name="h_1" step="any" required>
+            <span id="unit_h1_tres"></span>
+            </div>
+            <div class="form-group">
+            <label for="b_11">b1:</label>
+            <input type="number" id="b_11" name="b_11" step="any" required>
+            <span id="unit_b1_tres"></span>
+            </div>
+
+            <div class="form-group">
+            <label for="h_2">h2:</label>
+            <input type="number" id="h_2" name="h_2" step="any" required>
+            <span id="unit_h2_tres"></span>
+            </div>
+            <div class="form-group">
+            <label for="b_22">b2:</label>
+            <input type="number" id="b_22" name="b_22" step="any" required>
+            <span id="unit_b2_tres"></span>
+            </div>
+
+            <div class="form-group">
+            <label for="h_3">h3:</label>
+            <input type="number" id="h_3" name="h_3" step="any" required>
+            <span id="unit_h3_tres"></span>
+            </div>
+            <div class="form-group">
+            <label for="b_3">b3:</label>
+            <input type="number" id="b_3" name="b_3" step="any" required>
+            <span id="unit_b3_tres"></span>
+            </div>
+
+            <button type="submit" class="link-button">Calcular</button>
+        
+        </form>
+
+        <div class="Bloque_tres">
+            <div >
+                <label for="resultado_tres">Resultado: </label>
+                <select name="resultado_tres" id="resultado_tres" required> 
+                    <option value="mm">mm</option>
+                    <option value="cm">cm</option>
+                    <option value="m">m</option>
+                    <option value="ft">ft</option>
+                    <option value="in">in</option>
+                </select>
+            </div>
+            
+            <div class="resultados">
+            <p id="resultado-y_tres">y = </p>
+            <p id="resultado-x_tres">x = </p>
+            <p id="resultado-Ix_tres">Ix = </p>
+            <p id="resultado-Iy_tres">Iy =</p>
+            <p id="resultado-A_tres"> A = </p>
+            </div>
+        </div>
+        
     </section>
 
-    <section class="section">
-        <h2>Viga H Personalizada</h2>
-        <img src="ruta/a/la/imagen/viga_h_personalizada.jpg" alt="Viga H Personalizada">
-        <a href="calculo_viga_h_personalizada.html" class="link-button">Calcular Inercia</a>
-    </section>
-
-    <section class="section">
-        <h2>Viga Circular</h2>
-        <img src="ruta/a/la/imagen/viga_circular.jpg" alt="Viga Circular">
-        <a href="calculo_viga_circular.html" class="link-button">Calcular Inercia</a>
-    </section>
     <script src="java.js"></script>
 </body>
 </html>

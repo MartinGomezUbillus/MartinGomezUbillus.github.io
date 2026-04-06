@@ -87,6 +87,46 @@ document.getElementById('form_dos').addEventListener('submit', function(e) {
 
     MathJax.typeset();
 });
+document.getElementById('form_tres').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const uIn = document.getElementById("unidades_tres").value;
+    const uOut = document.getElementById("resultado_tres").value;
+    const k = (uIn === uOut) ? 1 : (CONVERSIONES[uIn][uOut] || 1);
+
+    const h1 = parseFloat(document.getElementById('h_1').value) * k;
+    const h2 = parseFloat(document.getElementById('h_2').value) * k;
+    const h3 = parseFloat(document.getElementById('h_3').value) * k;
+    const b1 = parseFloat(document.getElementById('b_11').value) * k;
+    const b2 = parseFloat(document.getElementById('b_22').value) * k;
+    const b3 = parseFloat(document.getElementById('b_3').value) * k;
+
+    if ([h1, h2, h3, b1,b2,b3].some(isNaN)) return alert("Valores inválidos de la seccion H personalizada.");
+
+    // Fórmulas Viga T
+    const A = b1*h1 + b2*h2 + b3*h3;
+    const y = (b1 * h1 * (h1 / 2 + h2 + h3) + b2 * h2 * (h2 / 2 + h3) + b3 * Math.pow(h3, 2) / 2) / A;
+    const x = b3 / 2;
+    const Ix = (b1 * Math.pow(h1, 3) / 12) 
+    + (b1 * h1 * (-(h1 / 2) - h2 - h3 + ((b1 * h1 * (h1 / 2 + h2 + h3)) + (b2 * h2 * (h2 / 2 + h3)) + (b3 * Math.pow(h3, 2) / 2)) / (b1 * h1 + b2 * h2 + b3 * h3)) ** 2)
+    + (b2 * Math.pow(h2, 3) / 12)
+    + (b2 * h2 * (-(h2 / 2) - h3 + ((b1 * h1 * (h1 / 2 + h2 + h3)) + (b2 * h2 * (h2 / 2 + h3)) + (b3 * Math.pow(h3, 2) / 2)) / (b1 * h1 + b2 * h2 + b3 * h3)) ** 2)
+    + (b3 * Math.pow(h3, 3) / 12)
+    + (b3 * h3 * (-(h3 / 2) + ((b1 * h1 * (h1 / 2 + h2 + h3)) + (b2 * h2 * (h2 / 2 + h3)) + (b3 * Math.pow(h3, 2) / 2)) / (b1 * h1 + b2 * h2 + b3 * h3)) ** 2);
+    const Iy = 2;
+
+    // Mostrar
+    mostrarEnPantalla('resultado-y_tres', '\\tilde{y}', y, uOut);
+    mostrarEnPantalla('resultado-x_tres', '\\tilde{x}', x, uOut);
+    mostrarEnPantalla('resultado-Ix_tres', '\\overline{I}_{x\'}', Ix, uOut, "^4");
+    mostrarEnPantalla('resultado-Iy_tres', '\\overline{I}_{y\'}', Iy, uOut, "^4");
+    mostrarEnPantalla('resultado-A_tres', 'A', A, uOut, "^2");
+
+    MathJax.typeset();
+
+    if (window.MathJax) {
+        MathJax.typeset();
+    }
+});
 
 
 document.getElementById('unidades').addEventListener('change', function() {
@@ -112,6 +152,20 @@ document.getElementById('unidades_dos').addEventListener('change', function() {
     //Las unidades se copien en resultadoss
     document.getElementById('resultado_dos').value = selectedUnit;
 });
+document.getElementById('unidades_tres').addEventListener('change', function() {
+    // Obtener el valor seleccionado en el <select>
+    const selectedUnit = this.value;
+
+    // Actualizar el texto de las unidades al costado de cada input
+    document.getElementById('unit_h1_tres').textContent = selectedUnit;
+    document.getElementById('unit_h2_tres').textContent = selectedUnit;
+    document.getElementById('unit_h3_tres').textContent = selectedUnit;
+    document.getElementById('unit_b1_tres').textContent = selectedUnit;
+    document.getElementById('unit_b2_tres').textContent = selectedUnit;
+    document.getElementById('unit_b3_tres').textContent = selectedUnit;
+    //Las unidades se copien en resultadoss
+    document.getElementById('resultado_tres').value = selectedUnit;
+});
 
 
 window.onload = function() {
@@ -119,5 +173,7 @@ window.onload = function() {
     document.getElementById('resultado').selectedIndex = -1; // Vaciar el campo "Resultado"
     document.getElementById('unidades_dos').selectedIndex = -1; // Vaciar el campo "Unidades"
     document.getElementById('resultado_dos').selectedIndex = -1; // Vaciar el campo "Resultado"
+    document.getElementById('unidades_tres').selectedIndex = -1; // Vaciar el campo "Unidades"
+    document.getElementById('resultado_tres').selectedIndex = -1; // Vaciar el campo "Resultado"
 }
 
