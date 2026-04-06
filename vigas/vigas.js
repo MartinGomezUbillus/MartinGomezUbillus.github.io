@@ -1,18 +1,23 @@
-// Cargar datos iniciales al abrir la página (Tus datos del script)
+// Contadores globales para los nombres automáticos
+let contadorApoyos = 1;
+let contadorDistribuidas = 1;
+let contadorPuntuales = 1;
+
+// Cargar datos iniciales al abrir la página
 window.onload = function() {
-    agregarFilaApoyo("A1", "empotrado", 0);
-    agregarFilaApoyo("A2", "articulado", 10);
+    agregarFilaApoyo("empotrado", 0);
+    agregarFilaApoyo("articulado", 10);
     agregarFilaDistribuida(-100, -100, 0, 8);
-    agregarFilaPuntual(0, 0, 0); // O puedes dejarla vacía si no la necesitas
+    agregarFilaPuntual(0, 0, 0); 
 };
 
 // --- FUNCIONES PARA TABLAS DINÁMICAS ---
 
-function agregarFilaApoyo(nombre, tipo, pos) {
+function agregarFilaApoyo(tipo, pos) {
     const tbody = document.querySelector("#tabla-apoyos tbody");
     const tr = document.createElement("tr");
     tr.innerHTML = `
-        <td><input type="text" value="${nombre}"></td>
+        <td class="col-nombre"><input type="text" value="A${contadorApoyos++}" readonly></td>
         <td>
             <select>
                 <option value="empotrado" ${tipo==='empotrado'?'selected':''}>Empotrado</option>
@@ -31,6 +36,7 @@ function agregarFilaDistribuida(q1, q2, xo, xf) {
     const tbody = document.querySelector("#tabla-distribuidas tbody");
     const tr = document.createElement("tr");
     tr.innerHTML = `
+        <td class="col-nombre"><input type="text" value="D${contadorDistribuidas++}" readonly></td>
         <td><input type="number" value="${q1}" step="any"></td>
         <td><input type="number" value="${q2}" step="any"></td>
         <td><input type="number" value="${xo}" step="any"></td>
@@ -44,6 +50,7 @@ function agregarFilaPuntual(f, m, pos) {
     const tbody = document.querySelector("#tabla-puntuales tbody");
     const tr = document.createElement("tr");
     tr.innerHTML = `
+        <td class="col-nombre"><input type="text" value="P${contadorPuntuales++}" readonly></td>
         <td><input type="number" value="${f}" step="any"></td>
         <td><input type="number" value="${m}" step="any"></td>
         <td><input type="number" value="${pos}" step="any"></td>
@@ -51,6 +58,7 @@ function agregarFilaPuntual(f, m, pos) {
     `;
     tbody.appendChild(tr);
 }
+    // ... (EL RESTO DE TU LÓGICA MATRICIAL SE MANTIENE EXACTAMENTE IGUAL) ...
 
 // --- LÓGICA DE CÁLCULO ESTRUCTURAL ---
 

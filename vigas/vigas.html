@@ -24,16 +24,18 @@
             </div>
         </div>
 
+        
         <!-- Tabla de Apoyos -->
         <div class="seccion-datos">
             <h3>Apoyos</h3>
             <table id="tabla-apoyos">
                 <thead>
-                    <tr><th>Nombre</th><th>Tipo</th><th>Posición (x)</th><th></th></tr>
+                    <tr><th class="col-nombre">ID</th><th>Tipo</th><th>Posición (x)</th><th></th></tr>
                 </thead>
                 <tbody></tbody>
             </table>
-            <button class="btn-agregar" onclick="agregarFilaApoyo('', 'empotrado', 0)">+ Agregar Apoyo</button>
+            <!-- Modificado para no enviar el nombre por parámetro -->
+            <button class="btn-agregar" onclick="agregarFilaApoyo('empotrado', 0)">+ Agregar Apoyo</button>
         </div>
 
         <!-- Tabla de Cargas Distribuidas -->
@@ -41,7 +43,7 @@
             <h3>Cargas Distribuidas</h3>
             <table id="tabla-distribuidas">
                 <thead>
-                    <tr><th>q1</th><th>q2</th><th>Posición Inicial (xo)</th><th>Posición Final (xf)</th><th></th></tr>
+                    <tr><th class="col-nombre">ID</th><th>q1</th><th>q2</th><th>Posición Inicial (xo)</th><th>Posición Final (xf)</th><th></th></tr>
                 </thead>
                 <tbody></tbody>
             </table>
@@ -53,7 +55,7 @@
             <h3>Cargas Puntuales</h3>
             <table id="tabla-puntuales">
                 <thead>
-                    <tr><th>Fuerza (Fy)</th><th>Momento (M)</th><th>Posición (x)</th><th></th></tr>
+                    <tr><th class="col-nombre">ID</th><th>Fuerza (Fy)</th><th>Momento (M)</th><th>Posición (x)</th><th></th></tr>
                 </thead>
                 <tbody></tbody>
             </table>

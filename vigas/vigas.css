@@ -118,3 +118,54 @@ button {
     white-space: pre-wrap;
     display: none;
 }
+
+.col-nombre {
+    width: 50px; /* Reduce la celda a su límite */
+    max-width: 50px;
+}
+
+.col-nombre input {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    background-color: #ecf0f1; /* Fondo ligeramente gris para diferenciarlo */
+    border: 1px solid #bdc3c7;
+    cursor: default; /* Indica que no es para escribir */
+}
+/* =========================================
+AJUSTES RESPONSIVOS PARA MÓVILES
+   ========================================= */
+
+/* 1. Habilitar scroll horizontal en los contenedores de las tablas */
+.seccion-datos {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Hace que el scroll táctil sea fluido en iOS */
+}
+
+/* 2. Evitar que las celdas se aplasten a cero */
+th, td {
+    min-width: 90px; /* Obliga a la tabla a tener un ancho decente */
+}
+
+/* 3. La columna de "Nombre" (ID) se mantiene compacta */
+.col-nombre {
+    min-width: 50px !important;
+    max-width: 50px;
+}
+
+/* 4. Proteger los inputs para que siempre se puedan tocar y leer */
+input[type="number"], input[type="text"], select {
+    min-width: 65px; /* Evita que los inputs como q1 o q2 desaparezcan */
+    width: 100%; /* Aprovecha el espacio de la celda */
+}
+
+/* 5. Pequeño ajuste para pantallas muy pequeñas */
+@media (max-width: 600px) {
+    .container {
+        padding: 15px; /* Reduce los bordes blancos laterales en el celular */
+    }
+    
+    h1 {
+        font-size: 22px; /* Achica un poco el título principal */
+    }
+}
