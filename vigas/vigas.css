@@ -169,3 +169,24 @@ input[type="number"], input[type="text"], select {
         font-size: 22px; /* Achica un poco el título principal */
     }
 }
+
+.seccion-diagramas canvas {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    width: 100%; /* Responsivo */
+    height: auto;
+}
+
+.seccion-ecuaciones {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.tramo-info {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-left: 4px solid #3498db;
+}

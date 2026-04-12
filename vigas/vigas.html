@@ -23,6 +23,10 @@
                 <input type="number" id="input-elasticidad" value="200000000000" step="any">
             </div>
         </div>
+        <div class="seccion-datos" style="text-align: center;">
+            <h3>Visualización de la Viga</h3>
+            <canvas id="canvas-viga" width="800" height="250" style="background: #fff; border: 1px solid #ccc; border-radius: 4px; width: 100%; max-width: 800px;"></canvas>
+        </div>
 
         
         <!-- Tabla de Apoyos -->
@@ -49,7 +53,6 @@
             </table>
             <button class="btn-agregar" onclick="agregarFilaDistribuida(0, 0, 0, 0)">+ Agregar Carga Distribuida</button>
         </div>
-
         <!-- Tabla de Cargas Puntuales -->
         <div class="seccion-datos">
             <h3>Cargas Puntuales</h3>
@@ -61,11 +64,37 @@
             </table>
             <button class="btn-agregar" onclick="agregarFilaPuntual(0, 0, 0)">+ Agregar Carga Puntual</button>
         </div>
-
         <button id="btn-calcular" onclick="calcularEstructura()">Ejecutar Cálculo</button>
 
         <div class="resultados" id="panel-resultados"></div>
-    </div>
-    <script src="vigas.js"></script>
+
+        <div class="seccion-diagramas">
+            <h3>Diagrama de Fuerza Cortante (DFC)</h3>
+            <canvas id="canvas-cortante" width="800" height="200"></canvas>
+    
+            <h3>Diagrama de Momento Flector (DMF)</h3>
+            <canvas id="canvas-momento" width="800" height="200"></canvas>
+        </div>
+
+        <div class="seccion-ecuaciones">
+            <h3>Ecuaciones por Tramo</h3>
+            <div id="contenedor-ecuaciones"></div>
+        </div>
+
+        <div class="seccion-datos" id="panel-consulta-x" style="display: none; margin-top: 20px;">
+            <h3>Consultar Valores en un Punto</h3>
+            <p style="font-size: 14px; color: #7f8c8d;">Ingresa una distancia x (desde el origen) para conocer la fuerza interna exacta.</p>
+            
+            <div class="input-group">
+                <label>Posición x (m):</label>
+                <input type="number" id="input-consulta-x" value="0" step="any">
+            </div>
+            <button class="btn-agregar" onclick="consultarValoresEnX()">Consultar</button>
+            
+            <div id="resultado-consulta-x" style="margin-top: 15px; font-weight: bold; color: #2c3e50; font-size: 16px;">
+                </div>
+        </div>
+        
+    </div> <script src="vigas.js"></script>
 </body>
 </html>

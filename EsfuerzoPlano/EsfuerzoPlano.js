@@ -43,7 +43,7 @@ document.getElementById('FormularioEsfuerzo').addEventListener('submit', functio
         //Esfuerzo cortante maximo
     document.getElementById("Tmax").innerHTML = `$\\tau_{xy_{máx}} = ${tau_max.toFixed(4)}$`;
     document.getElementById("Eprom").innerHTML = `$\\sigma_{prom} = ${sigma_prom.toFixed(4)}$`;
-    document.getElementById("ThetaS").innerHTML = `$\\theta_{s} = ${theta_s.toFixed(4)}$`;
+    document.getElementById("ThetaS").innerHTML = `$\\theta_{s} = ${theta_s.toFixed(4)}rad$`;
     if (window.MathJax) {
         MathJax.typesetPromise();
     }
