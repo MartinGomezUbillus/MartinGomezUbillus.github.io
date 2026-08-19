@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de Pórticos - Premium</title>
+    <link rel="stylesheet" href="Portico.CSS">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js"></script>
+    <!-- LIBRERÍAS PARA RENDERIZAR MARKDOWN Y MATEMÁTICAS (LATEX) -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Structura<span>Pro</span></h1>
+        <p>Análisis Avanzado de Pórticos</p>
+    </header>
+
+    <main class="container">
+        <!-- Panel Izquierdo: Ingreso de Datos -->
+        <section class="input-panel">
+            
+            <!-- NUEVA SECCIÓN: IMPORTAR DE IA -->
+            <div class="card" style="border-color: var(--primary-purple); background: rgba(139, 92, 246, 0.05);">
+                <h2>🤖 Importar datos desde IA</h2>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+                    Sube el archivo TXT generado por tu IA para autocompletar la geometría, propiedades y cargas.
+                </p>
+
+                <!-- Menú Desplegable con el Prompt -->   
+            <details class="ia-prompt-container">
+                <summary class="ia-prompt-summary">
+                    ✨ Ver Prompt para copiar y pegar en la IA
+                </summary>
+                
+                <div style="margin-top: 10px; position: relative;">
+                    <!-- El botón usará el CSS definido arriba -->
+                    <button id="btn-copy-prompt" onclick="copyPrompt()">
+                        📋 Copiar
+                    </button>
+                    
+                    <!-- En Portico.html -->
+<pre id="ia-prompt-text" class="ia-prompt-code">Actúa como un experto en análisis estructural. Analiza la imagen del pórtico adjunta y genera su modelo matemático. 
+
+Debes generar obligatoriamente un archivo descargable en formato .txt (o un bloque de código estructurado exactamente con el formato requerido para copiar y guardar) que contenga exclusivamente los datos solicitados, sin saludos, introducciones ni explicaciones adicionales.
+
+**Indicación sobre unidades:** Emplea estrictamente las unidades originales que aparecen en el enunciado del ejercicio (tales como kN, N, lb, kips, kgf, etc.) sin realizar conversiones forzadas (como pasar todo a Newtons), de modo que los valores numéricos coincidan con los planteados originalmente.
+
+Estructura y funcionamiento de las tablas:
+- [NODOS]: Coordenadas cartesianas (x, y) de cada nodo separadas por comas.
+- [APOYOS]: Número de nodo, tipo de apoyo ('empotrado', 'fijo' o 'personalizado'), y estado de restricción (true o false) para el desplazamiento en X, desplazamiento en Y y Giro respectivamente.
+- [BARRAS]: Nodo inicial, nodo final, Área (A), Inercia (I) y Módulo de Elasticidad (E) en el sistema de unidades del problema.
+- [CARGAS_DISTRIBUIDAS]: Identificador de la barra (letra), carga inicial q1 y carga final q2 (en las unidades originales del enunciado).
+- [FUERZAS_PUNTUALES]: Nodo, magnitud de la fuerza (en las unidades originales) y ángulo (°).
+- [MOMENTOS]: Nodo y magnitud del momento concentrado (en las unidades originales).
+
+[NODOS]
+0,0
+0,3
+4,3
+
+[APOYOS]
+1,empotrado,true,true,true
+3,fijo,true,true,false
+
+[BARRAS]
+1,2,0.1,0.0001,200000
+2,3,0.1,0.0001,200000
+
+[CARGAS_DISTRIBUIDAS]
+B,-1.5,-1.5
+
+[FUERZAS_PUNTUALES]
+2,0.5,0
+
+[MOMENTOS]
+2,1</pre>
+                </div>
+            </details>
+
+                <input type="file" id="file-upload" accept=".txt" style="display: none;" onchange="importDataFromTXT(event)">
+                <button class="btn-calculate" style="margin-top: 0; padding: 0.8rem; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;" onclick="document.getElementById('file-upload').click()">
+                    <span style="font-size: 1.2rem;">📂</span> Subir archivo TXT
+                </button>
+                <!-- Botón Descargar -->
+                <button class="btn-download" onclick="exportDataToTXT()">
+                    💾 Descargar configuración actual
+                </button>
+            </div>
+            <!-- 1. NODOS -->
+            <div class="card">
+                <h2>1. Coordenadas de Nodos</h2>
+                <table id="nodes-table">
+                    <thead>
+                        <tr>
+                            <th>Nodo</th>
+                            <th>X (m)</th>
+                            <th>Y (m)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="nodes-body"></tbody>
+                </table>
+                <button class="btn-add" onclick="addNode()">+ Agregar Nodo</button>
+            </div>
+
+            <!-- 2. APOYOS -->
+            <div class="card">
+                <h2>2. Apoyos</h2>
+                <table id="supports-table">
+                    <thead>
+                        <tr>
+                            <th>Nodo</th>
+                            <th>Tipo</th>
+                            <th>X</th>
+                            <th>Y</th>
+                            <th>Giro</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="supports-body"></tbody>
+                </table>
+                <button class="btn-add" onclick="addSupport()">+ Agregar Apoyo</button>
+            </div>
+
+            <!-- 3. BARRAS -->
+            <div class="card">
+                <h2>3. Definición de Barras</h2>
+                <table id="bars-table">
+                    <thead>
+                        <tr>
+                            <th>Barra</th>
+                            <th>Nodo Inicial</th>
+                            <th>Nodo Final</th>
+                            <th>Rótula Izq.</th>
+                            <th>Rótula Der.</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="bars-body"></tbody>
+                </table>
+                <button class="btn-add" onclick="addBar()">+ Agregar Barra</button>
+            </div>
+
+            <!-- 4. PROPIEDADES -->
+            <div class="card">
+                <div class="header-with-toggle">
+                    <h2>4. Propiedades (A, I, E)</h2>
+                    <div class="toggle-container">
+                        <span class="toggle-label">Propiedades Uniformes</span>
+                        <label class="switch">
+                            <input type="checkbox" id="uniform-toggle" onchange="toggleUniformProps()" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+                <table id="props-table">
+                    <thead>
+                        <tr>
+                            <th>Barra</th>
+                            <th>Área (m²)</th>
+                            <th>Inercia (m⁴)</th>
+                            <th>E (MPa)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="props-body"></tbody>
+                </table>
+            </div>
+
+            <!-- 5. CARGAS DISTRIBUIDAS -->
+            <div class="card">
+                <h2>5. Cargas Distribuidas</h2>
+                <table id="dist-loads-table">
+                    <thead>
+                        <tr>
+                            <th>Barra</th>
+                            <th>q1 (N/m)</th>
+                            <th>q2 (N/m)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="dist-loads-body"></tbody>
+                </table>
+                <button class="btn-add" onclick="addDistLoad()">+ Agregar Carga Distribuida</button>
+            </div>
+
+            <!-- 6. FUERZAS PUNTUALES -->
+            <div class="card">
+                <h2>6. Fuerzas Puntuales</h2>
+                <table id="point-loads-table">
+                    <thead>
+                        <tr>
+                            <th>Nodo</th>
+                            <th>Magnitud (N)</th>
+                            <th>Ángulo (°)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="point-loads-body"></tbody>
+                </table>
+                <button class="btn-add" onclick="addPointLoad()">+ Agregar Fuerza Puntual</button>
+            </div>
+
+            <!-- 7. MOMENTOS -->
+            <div class="card">
+                <h2>7. Momentos Concentrados</h2>
+                <table id="moments-table">
+                    <thead>
+                        <tr>
+                            <th>Nodo</th>
+                            <th>Magnitud (N·m)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="moments-body"></tbody>
+                </table>
+                <button class="btn-add" onclick="addMoment()">+ Agregar Momento</button>
+            </div>
+
+            <button class="btn-calculate" onclick="calculate()">CALCULAR ESTRUCTURA</button>
+        </section>
+
+        <!-- Panel Derecho: Visualización -->
+        <section class="visual-panel">
+            <div class="card visual-card">
+                <h2>Modelo de la Estructura</h2>
+                <div class="canvas-container">
+                    <canvas id="portico-canvas" width="600" height="400"></canvas>
+                    <div class="placeholder-text" id="portico-placeholder">El pórtico se dibujará aquí</div>
+                </div>
+            </div>
+
+            <!-- NUEVA SECCIÓN DE REACCIONES -->
+            <div class="card visual-card" id="reactions-section" style="display: none;">
+                <h2>Reacciones en los Apoyos</h2>
+                <table id="reactions-output-table">
+                    <thead>
+                        <tr>
+                            <th>Nodo</th>
+                            <th>Fuerza X (N)</th>
+                            <th>Fuerza Y (N)</th>
+                            <th>Momento (N·m)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reactions-body"></tbody>
+                </table>
+            </div>
+
+            <div class="card visual-card" id="results-section" style="display: none;">
+                <h2>Diagramas de Resultados</h2>
+                <div class="diagrams-grid">
+                    <div class="diagram-box"><h3>Fuerza Axial</h3><canvas id="axial-canvas" width="400" height="300"></canvas></div>
+                    <div class="diagram-box"><h3>Fuerza Cortante</h3><canvas id="cortante-canvas" width="400" height="300"></canvas></div>
+                    <div class="diagram-box"><h3>Momento Flector</h3><canvas id="flector-canvas" width="400" height="300"></canvas></div>
+                    <div class="diagram-box"><h3>Deformada</h3><canvas id="deformada-canvas" width="400" height="300"></canvas></div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button id="btn-toggle-details" class="btn-calculate" style="background-color: transparent; border: 1px dashed var(--primary-purple); color: var(--primary-glow); width: auto; padding: 0.8rem 2rem; box-shadow: none;" onclick="toggleDetails()">Mostrar más resultados ▼</button>
+                </div>
+                
+                <div id="detailed-results" class="detailed-results" style="display: none;">
+                    <!-- El JavaScript inyectará aquí las matrices y ecuaciones -->
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <script src="Portico.Js"></script>
+</body>
+</html>

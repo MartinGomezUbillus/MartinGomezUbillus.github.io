@@ -1,0 +1,223 @@
+:root {
+    --bg-dark: #0a0a0c;
+    --bg-card: #141419;
+    --bg-input: #1a1a24;
+    --primary-purple: #8b5cf6;
+    --primary-glow: #a78bfa;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border-color: #2d2d3a;
+    --danger-color: #ef4444; 
+    --success-green: #10b981; 
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Segoe UI', system-ui, sans-serif; 
+}
+
+body { 
+    background-color: var(--bg-dark); 
+    color: var(--text-main); 
+    padding-bottom: 2rem; 
+}
+
+header {
+    text-align: center; 
+    padding: 2rem; 
+    border-bottom: 1px solid var(--border-color);
+    background: linear-gradient(180deg, #1a1025 0%, var(--bg-dark) 100%);
+}
+
+header h1 { font-size: 2.5rem; letter-spacing: 2px; }
+header h1 span { color: var(--primary-purple); }
+header p { color: var(--text-muted); margin-top: 0.5rem; }
+
+/* Contenedor Principal Flexible */
+.container { 
+    display: flex; 
+    gap: 2rem; 
+    padding: 2rem; 
+    max-width: 1600px; 
+    margin: 0 auto; 
+    align-items: flex-start; 
+}
+
+.input-panel { 
+    flex: 1; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 1.5rem; 
+    min-width: 300px; 
+    max-width: 550px; 
+    width: 100%;
+}
+
+.visual-panel { 
+    flex: 2; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 1.5rem; 
+    position: sticky; 
+    top: 2rem; 
+    width: 100%;
+}
+
+.card { 
+    background-color: var(--bg-card); 
+    border: 1px solid var(--border-color); 
+    border-radius: 12px; 
+    padding: 1.5rem; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); 
+    width: 100%;
+}
+
+h2 { 
+    font-size: 1.1rem; 
+    margin-bottom: 1rem; 
+    color: var(--primary-glow); 
+    border-bottom: 1px solid var(--border-color); 
+    padding-bottom: 0.5rem; 
+}
+
+.header-with-toggle { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    border-bottom: 1px solid var(--border-color); 
+    margin-bottom: 1rem; 
+    padding-bottom: 0.5rem;
+}
+.header-with-toggle h2 { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+/* Tablas con anchos fluidos y seguros */
+table { 
+    width: 100%; 
+    max-width: 100%;
+    border-collapse: collapse; 
+    margin-bottom: 1rem; 
+}
+
+th, td { 
+    padding: 0.6rem 0.3rem; 
+    text-align: center; 
+    border-bottom: 1px solid var(--border-color); 
+    word-break: break-word;
+}
+
+th { 
+    color: var(--text-muted); 
+    font-weight: 500; 
+    font-size: 0.85rem; 
+}
+
+input[type="number"], input[type="text"], select {
+    width: 100%;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 0.45rem;
+    border-radius: 4px;
+    text-align: center;
+}
+
+input:focus, select:focus { outline: none; border-color: var(--primary-purple); }
+input:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ========================================================= */
+/* ELIMINAR FLECHAS (SPINNERS) DE LOS INPUTS NUMÉRICOS */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+/* ========================================================= */
+
+input[type="checkbox"] { 
+    width: 18px; 
+    height: 18px; 
+    accent-color: var(--success-green); 
+    cursor: pointer; 
+}
+
+button { cursor: pointer; border: none; border-radius: 6px; font-weight: 600; transition: all 0.2s ease; }
+.btn-add { width: 100%; padding: 0.6rem; background-color: transparent; border: 1px dashed var(--primary-purple); color: var(--primary-purple); }
+.btn-add:hover { background-color: rgba(139, 92, 246, 0.1); }
+.btn-delete { background-color: transparent; color: var(--danger-color); font-weight: bold; font-size: 1rem; padding: 0.2rem 0.4rem; border: 1px solid transparent; }
+.btn-delete:hover { background-color: rgba(239, 68, 68, 0.1); border-color: var(--danger-color); }
+
+.btn-calculate { width: 100%; padding: 1.1rem; background-color: var(--primary-purple); color: white; font-size: 1.05rem; letter-spacing: 1px; border-radius: 8px; margin-top: 1rem; box-shadow: 0 0 15px rgba(139, 92, 246, 0.4); }
+.btn-calculate:hover { background-color: var(--primary-glow); box-shadow: 0 0 25px rgba(139, 92, 246, 0.6); }
+
+.toggle-container { display: flex; align-items: center; gap: 8px; }
+.toggle-label { font-size: 0.8rem; color: var(--text-muted); }
+.switch { position: relative; display: inline-block; width: 38px; height: 22px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #333; transition: .4s; border-radius: 34px; }
+.slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+input:checked + .slider { background-color: var(--primary-purple); }
+input:checked + .slider:before { transform: translateX(16px); }
+
+.canvas-container { 
+    width: 100%; 
+    height: 450px; 
+    background-color: var(--bg-dark); 
+    border: 1px solid var(--border-color); 
+    border-radius: 8px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    position: relative; 
+    overflow: hidden; 
+}
+.placeholder-text { color: var(--text-muted); position: absolute; pointer-events: none; text-align: center; padding: 0 1rem; }
+canvas { display: block; width: 100%; height: 100%; }
+
+/* ========================================================= */
+/* MEDIA QUERIES PARA ADAPTABILIDAD MÓVIL Y TABLET           */
+/* ========================================================= */
+@media (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1.5rem;
+    }
+
+    .input-panel {
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .visual-panel {
+        position: static !important; /* Desactiva el sticky en pantallas pequeñas para apilarse limpiamente */
+        width: 100%;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding-bottom: 1rem;
+    }
+    
+    .container {
+        padding: 0.5rem;
+    }
+
+    .card {
+        padding: 1rem;
+    }
+
+    .canvas-container {
+        height: 350px; /* Reducir ligeramente la altura en celulares muy pequeños */
+    }
+}

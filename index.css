@@ -2,92 +2,103 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #c9c9ca;
-    color: #333;
-    
+    background-color: #0a0a0a; /* Fondo principal casi negro */
+    color: #e0e0e0; /* Texto claro para mejor lectura en modo oscuro */
 }
+
 header {
-    background-color: #ffffff;
+    background-color: #000000; /* Cabecera negra pura */
     color: white;
     padding: 20px 0;
     display: flex;
-    padding: auto;
+    align-items: center;
+    border-bottom: 2px solid #6a0dad; /* Acento morado oscuro en el borde */
+    box-shadow: 0 4px 15px rgba(106, 13, 173, 0.4); /* Sombra morada premium */
 }
+
 header h1 {
-    color: #0159A2;
+    color: #b388ff; /* Morado claro brillante */
     margin: 0;
     margin-left: auto;
     margin-right: auto;
     font-size: 5vw;
     text-align: center;
-    
+    text-shadow: 0 0 10px rgba(179, 136, 255, 0.3); /* Resplandor sutil */
 }
+
 .Logotipo {
     display: block;
     width: 20%;
-    margin-left: 0px;
+    margin-left: 20px; /* Añadí un pequeño margen para que no se pegue al borde */
 }
 
-.section_bienvenido{
+.section_bienvenido {
     color: #ffffff;
-    padding: 30px 0;
+    padding: 60px 20px;
     text-align: center;
     position: relative;
     min-height: 100px;
-    background-image: url('Imagenes/FONDO.jpg');
+    /* Oscurecemos el fondo de pantalla mezclándolo con negro y un ligero tono morado */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(20, 0, 40, 0.75)), url('Imagenes/FONDO.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    text-shadow: 5px 5px 6px rgba(0, 0, 0, 1);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 1);
 }
 
 .section_herramientas {
     display: flex;
     justify-content: space-around;
     padding: 40px 20px;
-    background-color: #cdcccc;
+    background-color: #121212; /* Gris sumamente oscuro */
     margin: 0;
     flex-wrap: wrap;
-    
-
 }
+
 .bloques {
-    margin: 5px 20px;
+    margin: 15px 20px;
     text-align: center;
     width: 30%;
-    
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    flex: 1 1 300px;    /* Crece, se encoge y tiene un tamaño base de 300px */
+    background-color: #1e1e1e; /* Tarjetas en gris oscuro */
+    border-radius: 12px; /* Bordes un poco más redondeados para toque moderno */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    flex: 1 1 300px; /* Crece, se encoge y tiene un tamaño base de 300px */
     max-width: 100%;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Suaviza la animación */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
+    border: 1px solid #333333; /* Borde sutil */
 }
+
 .bloques a {
-  /* Asegura que el enlace se comporte como un bloque para que los elementos internos respeten el alineado */
     display: block;
     text-decoration: none;
     color: inherit;
 }
+
 .bloques img {
-  /* Para centrar la imagen */
     display: block;
     margin: 0 auto;
     width: 75%;
-    
+    border-radius: 6px; /* Suaviza las esquinas de las imágenes */
 }
+
+.bloques h3 {
+    color: #ffffff;
+    transition: color 0.3s ease;
+}
+
 .bloques p {
-  /* Para justificar el párrafo */
     text-align: justify;
-    /* Opcional: añade un poco de margen arriba para que no pegue con la imagen */
-    margin-top: 15px; 
+    margin-top: 15px;
+    color: #b0b0b0; /* Texto de los párrafos en gris claro para contraste */
+    transition: color 0.3s ease;
 }
+
+/* Efectos de Hover Premium */
 .bloques:hover {
-    transform: translateY(-5px); /* Sube 5 píxeles */
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15); /* Añade sombra profunda */
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(156, 39, 176, 0.4); /* Sombra morada intensa */
+    border-color: #9c27b0; /* Borde se ilumina en morado */
     cursor: pointer;
 }
 
@@ -95,24 +106,22 @@ header h1 {
     transform: scale(1.05);
     transition: transform 0.3s ease;
 }
+
 .bloques:hover p {
-    color: #0159A2;
+    color: #e0e0e0; /* El texto se aclara al pasar el cursor */
 }
 
-/* El título cambia de color para indicar que es un link */
 .bloques:hover h3 {
-    color: #0159A2; /* Cambia al color que prefieras */
-    transition: color 0.3s ease;
+    color: #d500f9; /* El título cambia a un morado neón muy premium */
+    text-shadow: 0 0 8px rgba(213, 0, 249, 0.4);
 }
-
 
 footer {
-    background-color: #34495e;
-    color: white;
+    background-color: #050505;
+    color: #a0a0a0;
     text-align: center;
-    padding: 10px;
-    
-    /* CAMBIA ESTO: */
-    position: relative; /* En lugar de fixed */
-    margin-top: 20px; /* Para que no esté pegado al contenido de arriba */
+    padding: 15px;
+    position: relative;
+    margin-top: 0px; 
+    border-top: 1px solid #2a0a4a; /* Línea divisoria morada oscura */
 }

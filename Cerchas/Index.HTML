@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StructuraPro - Análisis de Cerchas</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- LIBRERÍA MATEMÁTICA OBLIGATORIA PARA RESOLVER MATRICES -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Structura<span>Pro</span></h1>
+        <p>Análisis Estructural de Cerchas</p>
+    </header>
+
+    <main class="container">
+        <!-- Panel Izquierdo: Tablas de Entrada -->
+        <section class="input-panel">
+            <!-- ARCHIVO TXT DE IMPORTACIÓN RÁPIDA -->
+            <!-- ARCHIVO TXT DE IMPORTACIÓN Y EXPORTACIÓN -->
+            <div class="card">
+                <h2>📁 Geometría (.txt)</h2>
+                <input type="file" id="txt-file-input" accept=".txt" style="margin-bottom: 0.5rem; color: var(--text-main); background-color: var(--bg-input); padding: 0.5rem; border-radius: 4px; width: 100%;" onchange="importarArchivoTxt(event)">
+                
+                <!-- BOTÓN PARA DESCARGAR NODOS Y BARRAS EN FORMATO .TXT -->
+                <button onclick="descargarGeometriaTxt()" style="margin-bottom: 0.8rem; width: 100%; padding: 0.6rem; background-color: transparent; border: 1px dashed var(--primary-glow); color: var(--primary-glow); border-radius: 4px; font-weight: bold; font-size: 0.9rem; transition: all 0.3s ease; cursor: pointer;">
+                    💾 Descargar Geometría (.txt)
+                </button>
+
+                <p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 1rem;">Sube o descarga tu archivo con formato de barras y nodos.</p>
+
+                <!-- SECCIÓN DESPLEGABLE DEL PROMPT -->
+                <details style="background-color: var(--bg-input); border: 1px solid var(--border-color); border-radius: 6px; padding: 0.6rem;">
+                    <summary style="cursor: pointer; color: var(--primary-glow); font-weight: 600; font-size: 0.9rem; outline: none;">
+                        🤖 ¿No tienes el .txt? Genera uno con IA
+                    </summary>
+                    <div style="margin-top: 1rem; position: relative;">
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;">Copia este texto y envíaselo a tu IA favorita junto con la imagen de tu cercha:</p>
+                        
+<textarea id="prompt-text" readonly style="width: 100%; height: 180px; background-color: var(--bg-dark); color: var(--text-main); border: 1px solid var(--border-color); border-radius: 4px; padding: 0.6rem; font-size: 0.8rem; resize: vertical; line-height: 1.4;">Actúa como un experto en ingeniería estructural y visión computacional. Te voy a proporcionar una imagen de una armadura (cercha) en 2D. Tu tarea es analizar la geometría de la estructura, extraer las coordenadas de los nodos y determinar cómo se conectan las barras.
+Con esta información, debes generar y entregar un archivo .txt descargable (puedes usar un entorno de ejecución de código como Python para crearlo si tienes la capacidad, o en su defecto, generar un bloque de texto puro listo para ser guardado como .txt). Este archivo servirá como base de datos de entrada para un aplicativo web de cálculo estructural.
+
+Reglas estrictas de formato para el archivo .txt:
+- Encabezado: La primera línea debe ser exactamente la siguiente, separada por tabulaciones (Tab):
+Ángulo	Fin X	Fin Y	Inicial X	Inicial Y	Longitud
+- Datos: Cada fila subsiguiente representará una barra de la armadura con sus respectivos valores calculados, también separados exclusivamente por tabulaciones.
+- Formato Numérico (Crítico): El separador de decimales DEBE ser obligatoriamente un punto (.). El separador de miles (si lo hubiera) DEBE ser un espacio en blanco ( ), nunca una coma. Todos los valores de coordenadas y longitudes deben tener exactamente 4 decimales de precisión (ejemplo: 3.0000). Los ángulos deben estar en grados (0 a 360).
+
+Pasos para tu análisis:
+1. Fija un origen de coordenadas (0,0) lógico en la imagen (por ejemplo, el apoyo inferior izquierdo).
+2. Identifica las coordenadas (X, Y) de cada nodo.
+3. Para cada barra, define un nodo Inicial (X, Y) y un nodo Final (X, Y).
+4. Calcula la longitud exacta de la barra y su ángulo de inclinación respecto al eje X positivo.
+5. Estructura los datos en el formato tabular solicitado.
+
+Ejemplo exacto del resultado esperado dentro del .txt:
+Ángulo	Fin X	Fin Y	Inicial X	Inicial Y	Longitud
+0	3.0000	0.0000	0.0000	0.0000	3.0000
+0	3.0000	3.0000	0.0000	3.0000	3.0000
+45	6.0000	3.0000	3.0000	0.0000	4.2426
+
+A continuación, te adjunto la imagen de la armadura. Procede con el análisis y entrégame el archivo .txt.</textarea>
+                        
+                        <button onclick="copyPrompt(event)" style="margin-top: 0.5rem; width: 100%; padding: 0.6rem; background-color: transparent; border: 1px dashed var(--primary-purple); color: var(--primary-glow); border-radius: 4px; font-weight: bold; font-size: 0.9rem; transition: all 0.3s ease;">📋 Copiar Prompt</button>
+                    </div>
+                </details>
+            </div>
+            
+            <!-- 1. NODOS -->
+            <div class="card">
+                <h2>1. Coordenadas de Nodos</h2>
+                <table id="nodes-table">
+                    <thead>
+                        <tr>
+                            <th>Nodo</th>
+                            <th>X</th>
+                            <th>Y</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="nodes-body"></tbody>
+                </table>
+                <button class="btn-add" onclick="addNode()">+ Agregar Nodo</button>
+            </div>
+
+            <!-- 2. APOYOS -->
+            <div class="card">
+                <h2>2. Apoyos</h2>
+                <table id="supports-table">
+                    <thead>
+                        <tr>
+                            <th>Nodo</th>
+                            <th>Restringir X</th>
+                            <th>Restringir Y</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="supports-body"></tbody>
+                </table>
+                <button class="btn-add" onclick="addSupport()">+ Agregar Apoyo</button>
+            </div>
+
+            <!-- 3. BARRAS Y PROPIEDADES -->
+            <div class="card">
+                <div class="header-with-toggle">
+                    <h2>3. Definición de Barras</h2>
+                    <div class="toggle-container">
+                        <span class="toggle-label">Barras Uniformes</span>
+                        <label class="switch">
+                            <!-- Inicia activado por defecto con "checked" -->
+                            <input type="checkbox" id="uniform-toggle" onchange="toggleUniformProps()" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+                <table id="bars-table">
+                    <thead>
+                        <tr>
+                            <th>Barra</th>
+                            <th>Inicio</th>
+                            <th>Fin</th>
+                            <th>E</th>
+                            <th>A</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="bars-body"></tbody>
+                </table>
+                <button class="btn-add" onclick="addBar()">+ Agregar Barra</button>
+            </div>
+
+            <!-- 4. CARGAS PUNTUALES -->
+            <div class="card">
+                <h2>4. Cargas Puntuales</h2>
+                <table id="point-loads-table">
+                    <thead>
+                        <tr>
+                            <th>Nodo</th>
+                            <th>Magnitud</th>
+                            <th>Ángulo (°)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="point-loads-body"></tbody>
+                </table>
+                <button class="btn-add" onclick="addPointLoad()">+ Agregar Carga Puntual</button>
+            </div>
+
+            <!-- 5. CARGAS DISTRIBUIDAS -->
+            <div class="card">
+                <h2>5. Cargas Distribuidas</h2>
+                <table id="dist-loads-table">
+                    <thead>
+                        <tr>
+                            <th>Barra</th>
+                            <th>q1</th>
+                            <th>q2</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="dist-loads-body"></tbody>
+                </table>
+                <button class="btn-add" onclick="addDistLoad()">+ Agregar Carga Distribuida</button>
+            </div>
+
+            <button class="btn-calculate" onclick="calculateTruss()">CALCULAR CERCHA</button>
+        </section>
+
+        <!-- Panel Derecho: Visualización -->
+        <section class="visual-panel">
+            <!-- CANVAS 1: MODELO GEOMÉTRICO (Siempre visible) -->
+            <div class="card visual-card">
+                <h2>Modelo Geométrico</h2>
+                <div class="canvas-container">
+                    <canvas id="truss-canvas"></canvas>
+                    <div class="placeholder-text" id="truss-placeholder">Dibuja o ingresa los datos para ver la cercha</div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN DE RESULTADOS (Oculta hasta calcular) -->
+            <div id="results-section" style="display: none; flex-direction: column; gap: 1.5rem; margin-top: 0.5rem;">
+                
+                <!-- CANVAS 2: DIAGRAMA DE FUERZAS -->
+                <div class="card visual-card">
+                    <h2>Diagrama de Fuerzas Axiales</h2>
+                    <div class="canvas-container">
+                        <canvas id="results-canvas"></canvas>
+                    </div>
+                </div>
+
+                <!-- TABLA: FUERZAS AXIALES Y MÁXIMOS -->
+                <div class="card visual-card">
+                    <h2>Resultados de Fuerzas Axiales <span id="total-bars-badge" style="font-size: 0.9rem; color: var(--text-muted); font-weight: normal; margin-left: 10px;"></span></h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Barra</th>
+                                <th>Fuerza Axial</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="results-body"></tbody>
+                    </table>
+                </div>
+
+                <!-- NUEVA TABLA: REACCIONES -->
+                <div class="card visual-card">
+                    <h2>Reacciones en los Apoyos</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nodo</th>
+                                <th>Rx</th>
+                                <th>Ry</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reactions-body"></tbody>
+                    </table>
+                </div>
+
+                <!-- BOTÓN DE DESCARGA -->
+                <button onclick="downloadReport()" class="btn-calculate" style="background-color: #2563eb; margin-top: 0.5rem; box-shadow: 0 0 15px rgba(37, 99, 235, 0.4);">⬇️ Descargar Reporte (.txt)</button>
+            </div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
