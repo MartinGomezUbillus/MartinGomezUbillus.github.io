@@ -232,11 +232,13 @@ function updateNodeDropdowns() {
     
     selects.forEach(select => {
         const currentVal = select.value;
-        select.innerHTML = '<option value="">- Seleccione -</option>';
+        // Texto por defecto más corto para evitar que desborde
+        select.innerHTML = '<option value="">- Sel -</option>'; 
         for(let i = 1; i <= numNodes; i++) {
             const opt = document.createElement('option');
             opt.value = i;
-            opt.textContent = `Nodo ${i}`;
+            // Aquí definimos que muestre N1, N2, etc. en lugar de Nodo 1, Nodo 2
+            opt.textContent = `N${i}`; 
             select.appendChild(opt);
         }
         if(currentVal && currentVal <= numNodes) select.value = currentVal;
@@ -255,7 +257,7 @@ function updateBarDropdowns() {
             const letter = getLetter(i);
             const opt = document.createElement('option');
             opt.value = letter;
-            opt.textContent = `Barra ${letter}`;
+            opt.textContent = `${letter}`;
             select.appendChild(opt);
         }
         if(currentVal) select.value = currentVal;
