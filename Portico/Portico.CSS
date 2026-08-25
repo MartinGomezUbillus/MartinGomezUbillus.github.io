@@ -97,7 +97,7 @@ table {
 }
 
 th, td { 
-    padding: 0.75rem 0.6rem; 
+    padding: 0.75rem 0.5rem; 
     text-align: center; 
     border-bottom: 1px solid var(--border-color); 
 }
@@ -109,22 +109,7 @@ th {
 }
 
 td input, td select {
-    width: 100%; /* Permite que los inputs sean fluidos en la PC */
-}
-
-/* 2. Reglas específicas SOLO para celulares y tablets (pantallas de 768px o menos) */
-@media (max-width: 768px) {
-    table {
-        min-width: 650px; /* Fuerza el ancho mínimo solo en móvil para activar el scroll */
-    }
-    
-    th, td {
-        white-space: nowrap; /* Evita que el texto se parta en varias líneas en móvil */
-    }
-    
-    td input, td select {
-        min-width: 80px; /* Evita que los inputs se hagan minúsculos en el celular */
-    }
+    width: 100%;
 }
 
 input[type="number"], input[type="text"], select {
@@ -136,6 +121,95 @@ input[type="number"], input[type="text"], select {
     border-radius: 4px;
     text-align: center;
 }
+
+/* 2. Reglas específicas SOLO para celulares y tablets (pantallas de 768px o menos) */
+/* ================= 1. ESTILOS GENERALES DE TABLAS (PC) ================= */
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    margin-bottom: 1rem; 
+}
+
+th, td { 
+    padding: 0.75rem 0.5rem; 
+    text-align: center; 
+    border-bottom: 1px solid var(--border-color); 
+}
+
+th { 
+    color: var(--text-muted); 
+    font-weight: 500; 
+    font-size: 0.9rem; 
+}
+
+td input, td select {
+    width: 100%;
+}
+
+input[type="number"], input[type="text"], select {
+    width: 100%;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 0.5rem;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* ================= 2. REGLAS RESPONSIVAS PARA MÓVILES Y TABLETS (<= 768px) ================= */
+@media (max-width: 768px) {
+    /* Permitir que las tablas sean fluidas por defecto */
+    table {
+        width: 100%;
+        min-width: 100%; /* Se adaptan al ancho de la tarjeta/pantalla */
+    }
+    
+    th, td {
+        padding: 0.4rem 0.2rem; /* Relleno compacto en celular */
+        font-size: 0.82rem;      /* Texto ligeramente más compacto */
+    }
+
+    th {
+        font-size: 0.8rem;
+        white-space: nowrap;     /* Mantiene encabezados limpios */
+    }
+    
+    /* Campos de entrada ajustados para no ocupar espacio innecesario */
+    td input[type="number"], 
+    td input[type="text"], 
+    td select {
+        padding: 0.35rem 0.2rem;
+        font-size: 0.85rem;
+        min-width: 45px; /* Ancho justo y cómodo para ingresar coordenadas/valores */
+    }
+
+    /* Solamente las tablas con muchas columnas tienen un ancho mínimo suave para no apretarse */
+    #supports-table, 
+    #bars-table {
+        min-width: 390px; /* Solo se agranda lo justo y necesario */
+    }
+
+    /* Ajuste de casillas de verificación (Rótulas/Apoyos) en celular */
+    input[type="checkbox"].support-check {
+        width: 16px;
+        height: 16px;
+    }
+
+    .btn-delete {
+        padding: 0.1rem 0.3rem;
+        font-size: 1rem;
+    }
+
+    .btn-calculate {
+        position: sticky;
+        bottom: 1rem;
+        z-index: 100;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+}
+
+
 
 input[type="number"]:focus, input[type="text"]:focus, select:focus { outline: none; border-color: var(--primary-purple); }
 input:disabled, select:disabled { opacity: 0.5; cursor: not-allowed; }
@@ -218,7 +292,83 @@ input:checked + .slider:before { transform: translateX(20px); }
     }
 }
 
+/* ================= 1. ESTILOS GENERALES DE TABLAS (PC) ================= */
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    margin-bottom: 1rem; 
+}
+
+th, td { 
+    padding: 0.75rem 0.5rem; 
+    text-align: center; 
+    border-bottom: 1px solid var(--border-color); 
+}
+
+th { 
+    color: var(--text-muted); 
+    font-weight: 500; 
+    font-size: 0.9rem; 
+}
+
+td input, td select {
+    width: 100%;
+}
+
+input[type="number"], input[type="text"], select {
+    width: 100%;
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 0.5rem;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* ================= 2. REGLAS RESPONSIVAS PARA MÓVILES Y TABLETS (<= 768px) ================= */
 @media (max-width: 768px) {
+    /* Permitir que las tablas sean fluidas por defecto */
+    table {
+        width: 100%;
+        min-width: 100%; /* Se adaptan al ancho de la tarjeta/pantalla */
+    }
+    
+    th, td {
+        padding: 0.4rem 0.2rem; /* Relleno compacto en celular */
+        font-size: 0.82rem;      /* Texto ligeramente más compacto */
+    }
+
+    th {
+        font-size: 0.8rem;
+        white-space: nowrap;     /* Mantiene encabezados limpios */
+    }
+    
+    /* Campos de entrada ajustados para no ocupar espacio innecesario */
+    td input[type="number"], 
+    td input[type="text"], 
+    td select {
+        padding: 0.35rem 0.2rem;
+        font-size: 0.85rem;
+        min-width: 45px; /* Ancho justo y cómodo para ingresar coordenadas/valores */
+    }
+
+    /* Solamente las tablas con muchas columnas tienen un ancho mínimo suave para no apretarse */
+    #supports-table, 
+    #bars-table {
+        min-width: 390px; /* Solo se agranda lo justo y necesario */
+    }
+
+    /* Ajuste de casillas de verificación (Rótulas/Apoyos) en celular */
+    input[type="checkbox"].support-check {
+        width: 16px;
+        height: 16px;
+    }
+
+    .btn-delete {
+        padding: 0.1rem 0.3rem;
+        font-size: 1rem;
+    }
+
     .btn-calculate {
         position: sticky;
         bottom: 1rem;
